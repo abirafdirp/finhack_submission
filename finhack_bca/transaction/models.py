@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.utils import timezone
 
@@ -10,13 +12,13 @@ class BaseTransaction(models.Model):
     class Meta:
         abstract = True
 
+    def save(self, *args, **kwargs):
+        self.date = timezone.now()
+        return super(BaseTransaction, self).save(*args, **kwargs)
+
 
 class CounterTopUp(BaseTransaction):
     counter = models.ForeignKey('users.User')
-
-    def save(self, *args, **kwargs):
-        self.date = timezone.now()
-        return super(CounterTopUp, self).save(*args, **kwargs)
 
 
 class CustomerTopUp(BaseTransaction):
@@ -34,17 +36,18 @@ class CustomerTopUp(BaseTransaction):
 class Payment(BaseTransaction):
     user = models.ForeignKey('users.User')
 
-    def save(self, *args, **kwargs):
-        self.date = timezone.now()
-        return super(Payment, self).save(*args, **kwargs)
-
 
 class Transaction(BaseTransaction):
     customer = models.ForeignKey('users.User')
     store = models.ForeignKey('store.Store')
+    transaction_code = models.UUIDField(default=uuid.uuid4,
+                                        unique=True,
+                                        editable=False)
 
     # remarks from the store, such as detail of the transaction
     remarks = models.TextField()
+
+    confirmed = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         self.date = timezone.now()
