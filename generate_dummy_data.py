@@ -22,6 +22,10 @@ from finhack_bca.transaction.models import Transaction
 from finhack_bca.store.models import Store
 from finhack_bca.users.models import User
 
+print('This might take a while...')
+print('Generating Stores, Counters, Customers, Top Ups, Payments,'
+      'and Transactions')
+
 
 def timezone_it(datetime):
     return pytz.timezone('Asia/Jakarta').localize(datetime)
@@ -51,19 +55,30 @@ for user in users:
 
 fake = Faker()
 fake.name()
+date_of_births = [
+    '1970-03-01',
+    '1979-04-02',
+    '1973-05-01',
+    '1985-06-03',
+    '2000-07-04',
+    '1990-08-09',
+    '1980-09-11',
+]
 
 
 # register counters
-for a in range(0, 15):
-    User.objects.create(
+for a in range(0, 10):
+    User.objects.create_user(
         username=fake.user_name(),
         email=fake.email(),
-        password=fake.password(),
+        password='qwerty',
         type='counter',
         latitude=fake.latitude(),
         longitude=fake.longitude(),
         address=fake.address(),
-        city=fake.city()
+        city=fake.city(),
+        mobile_number=fake.phone_number(),
+        date_of_birth=random.choice(date_of_births)
     )
 
 # simulate counter top ups
@@ -90,12 +105,14 @@ for counter in counters:
 
 
 # register customers
-for c in range(0, 40):
-    User.objects.create(
+for c in range(0, 10):
+    User.objects.create_user(
         username=fake.user_name(),
         email=fake.email(),
-        password=fake.password(),
+        password='qwerty',
         type='customer',
+        mobile_number=fake.phone_number(),
+        date_of_birth=random.choice(date_of_births)
     )
 
 # simulate customer top ups
@@ -122,9 +139,50 @@ for customer in customers:
         fake_datetime_topup += add_random_days(long=False)
 
 
-# generate stores
-
-for x in range(0, 20):
-    Store.objects.create(
-
+# generate stores and theirs accounts
+for x in range(0, 8):
+    store = Store.objects.create(
+        name=fake.company(),
+        domain=fake.url(),
+        short_description=fake.text(max_nb_chars=200)
     )
+    user = User.objects.create_user(
+        username=fake.user_name(),
+        email=fake.email(),
+        password='qwerty',
+        type='store',
+        mobile_number=fake.phone_number(),
+        date_of_birth=random.choice(date_of_births)
+    )
+    user.stores.add(store)
+
+
+stores = Store.objects.all()
+
+transaction_amounts = [10000, 50000, 30000, 300000, 500000, 78000,
+                      40000, 33333, 29000, 157000]
+
+
+fake_datetime2 = datetime.datetime(2016, 1, 1)
+fake_datetime_timezoned2 = timezone_it(fake_datetime)
+
+users = User.objects.all()
+# simulate transactions
+for user in users:
+    if user.is_staff:
+        continue
+    fake_datetime_transaction = fake_datetime_timezoned2
+    for store in stores:
+        transaction_amount = random.choice(transaction_amounts)
+        if user.balance < transaction_amount:
+            break
+        Transaction.objects.create(
+            date=fake_datetime_transaction,
+            store=store,
+            customer=user,
+            amount=transaction_amount,
+            remarks=fake.text(max_nb_chars=100),
+            status=random.choice([True, True, True, True, False])
+        )
+        fake_datetime_transaction += add_random_days(long=False)
+

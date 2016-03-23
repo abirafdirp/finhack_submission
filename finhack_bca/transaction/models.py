@@ -2,8 +2,10 @@ import uuid
 
 from django.db import models
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class BaseTransaction(models.Model):
     date = models.DateTimeField()
     amount = models.IntegerField()
@@ -12,17 +14,13 @@ class BaseTransaction(models.Model):
     class Meta:
         abstract = True
 
-    def save(self, *args, **kwargs):
-        # disabled temporarily for testing purposes
-        # self.date = timezone.now()
-        return super(BaseTransaction, self).save(*args, **kwargs)
-
 METHOD = (
     ('transfer', 'Transfer'),
     ('manual', 'Manual')
 )
 
 
+@python_2_unicode_compatible
 class CounterTopUp(BaseTransaction):
     counter = models.ForeignKey('users.User')
     method = models.CharField(choices=METHOD, max_length=30)
@@ -32,12 +30,10 @@ class CounterTopUp(BaseTransaction):
         verbose_name_plural = 'Top up counter'
 
     def save(self, *args, **kwargs):
-        super(BaseTransaction, self).save(*args, **kwargs)
-        if self.status:
-            self.counter.balance += self.amount
-            self.counter.save()
+        return super(BaseTransaction, self).save(*args, **kwargs)
 
 
+@python_2_unicode_compatible
 class CustomerTopUp(BaseTransaction):
     customer = models.ForeignKey('users.User',
                                  related_name='customer_payments')
@@ -48,18 +44,14 @@ class CustomerTopUp(BaseTransaction):
     def save(self, *args, **kwargs):
         # disabled temporarily for testing purposes
         # self.date = timezone.now()
-        super(CustomerTopUp, self).save(*args, **kwargs)
-        if self.status:
-            self.counter.balance -= self.amount
-            self.customer.balance += self.amount
-            self.counter.save()
-            self.customer.save()
+        return super(CustomerTopUp, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Top up pengguna'
         verbose_name_plural = 'Top up pengguna'
 
 
+@python_2_unicode_compatible
 class Payment(BaseTransaction):
     user = models.ForeignKey('users.User')
 
@@ -67,9 +59,13 @@ class Payment(BaseTransaction):
         verbose_name = 'Pembayaran'
         verbose_name_plural = 'Pembayaran'
 
+    def save(self, *args, **kwargs):
+        return super(Payment, self).save(*args, **kwargs)
 
+
+@python_2_unicode_compatible
 class Transaction(BaseTransaction):
-    customer = models.ForeignKey('users.User')
+    customer = models.ForeignKey('users.User', related_name='transactions')
     store = models.ForeignKey('store.Store')
     transaction_code = models.UUIDField(default=uuid.uuid4,
                                         unique=True,

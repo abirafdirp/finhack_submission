@@ -38,7 +38,9 @@ class UserAdmin(AuthUserAdmin):
     add_form = MyUserCreationForm
 
     fieldsets = AuthUserAdmin.fieldsets + (
-            (None, {'fields': ('type',)}),
+            (None, {'fields': ('type',
+                               'mobile_number',
+                               'date_of_birth')}),
     )
 
     list_display = [
