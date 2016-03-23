@@ -10,8 +10,10 @@ from django.utils.translation import ugettext_lazy as _
 
 TYPE = (
     ('counter', 'Counter'),
-    ('customer', 'Customer')
+    ('customer', 'Customer'),
+    ('staff', 'Staff')
 )
+
 
 @python_2_unicode_compatible
 class User(AbstractUser):
@@ -24,6 +26,8 @@ class User(AbstractUser):
     # this meant for counter only
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
 
     balance = models.IntegerField(default=0)
 

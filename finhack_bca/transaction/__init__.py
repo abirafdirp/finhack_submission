@@ -1,0 +1,1 @@
+default_app_config = 'finhack_bca.transaction.apps.TransactionConfig'

@@ -32,6 +32,7 @@ DJANGO_APPS = (
     # 'django.contrib.humanize',
 
     # Admin
+    'jet',
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
@@ -210,9 +211,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Some really nice defaults
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 ACCOUNT_ADAPTER = 'finhack_bca.users.adapters.AccountAdapter'
@@ -232,3 +233,4 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
+JET_SIDE_MENU_COMPACT = True

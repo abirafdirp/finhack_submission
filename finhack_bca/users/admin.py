@@ -36,3 +36,25 @@ class MyUserCreationForm(UserCreationForm):
 class UserAdmin(AuthUserAdmin):
     form = MyUserChangeForm
     add_form = MyUserCreationForm
+
+    fieldsets = AuthUserAdmin.fieldsets + (
+            (None, {'fields': ('type',)}),
+    )
+
+    list_display = [
+        'username',
+        'email',
+        'type',
+        'balance_formatted',
+        'city',
+        'address'
+    ]
+    list_filter = [
+        'type'
+    ]
+
+    def balance_formatted(self, instance):
+        return 'IDR {:,}'.format(instance.balance).replace(',', '.')
+
+    balance_formatted.short_description = 'saldo'
+    balance_formatted.admin_order_field = 'balance'
