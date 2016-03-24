@@ -24,7 +24,7 @@ class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_("Name of User"), blank=True, max_length=255)
-    type = models.CharField(choices=TYPE, default='customer', max_length=20)
+    type = models.CharField(choices=TYPE, blank=True, null=True, max_length=20)
 
     # this meant for counter only
     latitude = models.FloatField(blank=True, null=True)
