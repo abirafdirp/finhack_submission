@@ -78,7 +78,8 @@ for a in range(0, 10):
         address=fake.address(),
         city=fake.city(),
         mobile_number=fake.phone_number(),
-        date_of_birth=random.choice(date_of_births)
+        date_of_birth=random.choice(date_of_births),
+        name=fake.name(),
     )
 
 # simulate counter top ups
@@ -175,7 +176,7 @@ for user in users:
     for store in stores:
         transaction_amount = random.choice(transaction_amounts)
         if user.balance < transaction_amount:
-            break
+            continue
         Transaction.objects.create(
             date=fake_datetime_transaction,
             store=store,

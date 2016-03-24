@@ -40,7 +40,8 @@ class UserAdmin(AuthUserAdmin):
     fieldsets = AuthUserAdmin.fieldsets + (
             (None, {'fields': ('type',
                                'mobile_number',
-                               'date_of_birth')}),
+                               'date_of_birth',
+                               'stores')}),
     )
 
     list_display = [

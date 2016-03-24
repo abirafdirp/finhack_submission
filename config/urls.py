@@ -8,9 +8,14 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
+from finhack_bca.frontend import views
+
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
+    url(r'^daftar-toko/$', views.StoreListView.as_view(), name="list-toko"),
+    url(r'^daftar-counter/$', views.CounterListView.as_view(), name="list-counter"),
+    url(r'^developer/$', TemplateView.as_view(template_name='pages/developer.html'), name='developer'),
 
     # Django Admin, use {% url 'admin:index' %}
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS

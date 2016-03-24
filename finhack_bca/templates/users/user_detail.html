@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-sm-12">
 
-        <h2>{{ object.username }}</h2>
+        <h2>{{ object.username }} - {{ object.type }}</h2>
         {% if object.name %}
           <p>{{ object.name }}</p>
         {% endif %}
@@ -31,6 +31,7 @@
           Saldo : IDR {{ object.balance|intcomma }}
         </div>
 
+        {% if object.type == 'customer' or object.type == 'counter' %}
         <div class="col-sm-12">
           <h4>Riwayat Top Up</h4>
           <table class="table table-inverse">
@@ -43,19 +44,62 @@
               </tr>
             </thead>
             <tbody>
-              {% for topup in object.customer_top_ups.all %}
-                <tr>
-                  <th scope="row">{{ forloop.counter }}</th>
-                  <td>{{ topup.date }}</td>
-                  <td>{{ topup.counter }}</td>
-                  <td>IDR {{ topup.amount|intcomma }}</td>
-                </tr>
-                {% if forloop.last %}
-                {% endif %}
-              {% endfor %}
+              {% if object.top_ups.all %}
+                {% for topup in object.top_ups.all %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ topup.date }}</td>
+                    <td>{{ topup.counter }}</td>
+                    <td>IDR {{ topup.amount|intcomma }}</td>
+                  </tr>
+                  {% if forloop.last %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+              {% if object.counter_top_ups.all %}
+                {% for topup in object.counter_top_ups.all %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ topup.date }}</td>
+                    <td>{{ topup.counter }}</td>
+                    <td>IDR {{ topup.amount|intcomma }}</td>
+                  </tr>
+                  {% if forloop.last %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
             </tbody>
           </table>
         </div>
+        {% endif %}
+
+        {% if object.customer_top_ups.all %}
+          <div class="col-sm-12">
+            <h4>Riwayat Top Up Pelanggan</h4>
+            <table class="table table-inverse">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Tanggal</th>
+                  <th>Pengguna</th>
+                  <th>Jumlah</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for topup in object.customer_top_ups.all %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ topup.date }}</td>
+                    <td>{{ topup.customer }}</td>
+                    <td>IDR {{ topup.amount|intcomma }}</td>
+                  </tr>
+                  {% if forloop.last %}
+                  {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% endif %}
 
         <div class="col-sm-12">
           <h4>Riwayat Transaksi</h4>
@@ -70,17 +114,33 @@
               </tr>
             </thead>
             <tbody>
-              {% for transaction in object.transactions.all %}
-                <tr>
-                  <th scope="row">{{ forloop.counter }}</th>
-                  <td>{{ transaction.date }}</td>
-                  <td>{{ transaction.transaction_code }}</td>
-                  <td>{{ transaction.store }}</td>
-                  <td>IDR {{ transaction.amount|intcomma }}</td>
-                </tr>
-                {% if forloop.last %}
-                {% endif %}
-              {% endfor %}
+              {% if object.stores.all %}
+                {% for store in object.stores.all %}
+                  {% for transaction in store.transactions.all %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ transaction.date }}</td>
+                    <td>{{ transaction.transaction_code }}</td>
+                    <td>{{ transaction.store }}</td>
+                    <td>IDR {{ transaction.amount|intcomma }}</td>
+                  </tr>
+                    {% endfor %}
+                  {% if forloop.last %}
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                  {% for transaction in object.transactions.all %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ transaction.date }}</td>
+                      <td>{{ transaction.transaction_code }}</td>
+                      <td>{{ transaction.store }}</td>
+                      <td>IDR {{ transaction.amount|intcomma }}</td>
+                    </tr>
+                  {% endfor %}
+                  {% if forloop.last %}
+                  {% endif %}
+              {% endif %}
             </tbody>
           </table>
         </div>

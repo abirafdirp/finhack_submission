@@ -22,7 +22,7 @@ METHOD = (
 
 @python_2_unicode_compatible
 class CounterTopUp(BaseTransaction):
-    counter = models.ForeignKey('users.User')
+    counter = models.ForeignKey('users.User', related_name='counter_top_ups')
     method = models.CharField(choices=METHOD, max_length=30)
 
     class Meta:
@@ -36,7 +36,7 @@ class CounterTopUp(BaseTransaction):
 @python_2_unicode_compatible
 class CustomerTopUp(BaseTransaction):
     customer = models.ForeignKey('users.User',
-                                 related_name='customer_payments')
+                                 related_name='top_ups')
     # counter will be determined at admin (request.user)
     counter = models.ForeignKey('users.User', blank=True, null=True,
                                 related_name='customer_top_ups')
@@ -66,7 +66,7 @@ class Payment(BaseTransaction):
 @python_2_unicode_compatible
 class Transaction(BaseTransaction):
     customer = models.ForeignKey('users.User', related_name='transactions')
-    store = models.ForeignKey('store.Store')
+    store = models.ForeignKey('store.Store', related_name='transactions')
     transaction_code = models.UUIDField(default=uuid.uuid4,
                                         unique=True,
                                         editable=False)

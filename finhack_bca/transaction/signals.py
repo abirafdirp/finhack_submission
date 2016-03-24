@@ -1,6 +1,7 @@
 from django.db.models.signals import post_save
 
 from finhack_bca.transaction.models import Payment, Transaction, CustomerTopUp, CounterTopUp
+from finhack_bca.users.models import User
 
 
 def customer_top_up(sender, instance, created, **kwargs):
@@ -36,6 +37,9 @@ def transaction(sender, instance, created, **kwargs):
             status=True,
             user=instance.customer
         )
+        store_user = User.objects.get(stores__name=instance.store.name)
+        store_user.balance += instance.amount
+        store_user.save()
 
 post_save.connect(customer_top_up, sender=CustomerTopUp)
 post_save.connect(counter_top_up, sender=CounterTopUp)

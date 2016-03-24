@@ -49,6 +49,7 @@ LOCAL_APPS = (
     # Your stuff: custom apps go here
     'finhack_bca.store',
     'finhack_bca.transaction',
+    'finhack_bca.frontend',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

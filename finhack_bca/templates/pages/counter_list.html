@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Daftar counter{% endblock %}
+
+{% block content %}
+  <div class="col-sm-12">
+    <h4>Temukan counter di seluruh Indonesia</h4>
+    <table class="table table-inverse">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Nama</th>
+        <th>Alamat</th>
+        <th>Kota</th>
+        <th>latitude</th>
+        <th>longitude</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for counter in object_list %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ counter.name }}</td>
+          <td>{{ counter.address }}</td>
+          <td>{{ counter.city }}</td>
+          <td>{{ counter.latitude }}</td>
+          <td>{{ counter.longitude }}</td>
+        </tr>
+        {% if forloop.last %}
+        {% endif %}
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

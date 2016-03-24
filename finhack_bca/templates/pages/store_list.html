@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Daftar toko{% endblock %}
+
+{% block content %}
+  <div class="col-sm-12">
+    <h4>Daftar toko yang menggunakan sistem kita</h4>
+    <table class="table table-inverse">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Nama</th>
+        <th>Alamat</th>
+        <th>Deskripsi</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for store in store_list %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ store.name }}</td>
+          <td>{{ store.domain }}</td>
+          <td>{{ store.short_description }}</td>
+        </tr>
+        {% if forloop.last %}
+        {% endif %}
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
