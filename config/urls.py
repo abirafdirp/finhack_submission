@@ -15,7 +15,9 @@ urlpatterns = [
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
     url(r'^daftar-toko/$', views.StoreListView.as_view(), name="list-toko"),
     url(r'^daftar-counter/$', views.CounterListView.as_view(), name="list-counter"),
+    url(r'^konfirmasi/$', views.TransactionConfirmationView.as_view(), name="transaction-confirmation"),
     url(r'^developer/$', TemplateView.as_view(template_name='pages/developer.html'), name='developer'),
+    url(r'^konfirmasi/kode/$', views.GetLatestCodeView.as_view(), name='get-transaction-code'),
 
     # Django Admin, use {% url 'admin:index' %}
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS

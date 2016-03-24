@@ -69,14 +69,16 @@ class Transaction(BaseTransaction):
     store = models.ForeignKey('store.Store', related_name='transactions')
     transaction_code = models.UUIDField(default=uuid.uuid4,
                                         unique=True,
-                                        editable=False)
+                                        editable=False,
+                                        blank=True,
+                                        null=True)
 
     # remarks from the store, such as detail of the transaction
     remarks = models.TextField()
 
     def save(self, *args, **kwargs):
         # disabled temporarily for testing purposes
-        # self.date = timezone.now()
+        self.date = timezone.now()
         return super(Transaction, self).save(*args, **kwargs)
 
     class Meta:

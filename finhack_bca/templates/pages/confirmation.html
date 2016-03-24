@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <form class="form-horizontal" method="post" action="{% url 'transaction-confirmation' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn">Konfirmasi</button>
+          </div>
+        </div>
+    </form>
+{% endblock %}

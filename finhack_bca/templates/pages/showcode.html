@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  Kamu berhasil melakukan pembayaran, silahkan masukan kode ini pada form website transaksi<br>
+  <h2>{{ latest_transaction.transaction_code }}</h2><br>
+  Jumlah : {{ latest_transaction.amount }}<br>
+  Toko : {{ latest_transaction.store }}
+{% endblock %}
