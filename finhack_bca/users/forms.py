@@ -1,11 +1,14 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 
 class SignupForm(forms.Form):
-    first_name = forms.CharField(max_length=30, label='Voornaam')
-    last_name = forms.CharField(max_length=30, label='Achternaam')
+    name = forms.CharField(max_length=30, label=_('Name'))
+    mobile_number = forms.CharField(max_length=30)
+
+    # TODO clean mobile_number
 
     def signup(self, request, user):
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
+        user.name = self.cleaned_data['name']
+        user.mobile_number = self.cleaned_data['mobile_number']
         user.save()

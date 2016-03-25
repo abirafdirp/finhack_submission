@@ -41,6 +41,9 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth'
 )
 
 # Apps specific for this project go here.
@@ -238,3 +241,9 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 # Your common stuff: Below this line define 3rd party library settings
 JET_SIDE_MENU_COMPACT = True
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'finhack_bca.users.serializers.UserSerializer'
+}
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'finhack_bca.users.forms.SignupForm'

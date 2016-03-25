@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
+    url(r'^api/', include('rest_auth.urls')),
+    url(r'^api/registration/', include('rest_auth.registration.urls'))
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

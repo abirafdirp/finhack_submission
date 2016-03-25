@@ -39,7 +39,7 @@ class User(AbstractUser):
 
     # BCA's mandatory fields, email is used as primary id bca
     date_of_birth = models.DateField(blank=True, null=True)
-    mobile_number = models.CharField(max_length=30, blank=True, null=True)
+    mobile_number = models.CharField(max_length=30)
 
     def __str__(self):
         return self.username
