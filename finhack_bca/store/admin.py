@@ -1,9 +1,11 @@
 from django.contrib import admin
 
+from guardian.admin import GuardedModelAdmin
+
 from finhack_bca.store import models
 
 
-class StoreAdmin(admin.ModelAdmin):
+class StoreAdmin(GuardedModelAdmin):
     list_display = [
         'name',
         'domain',

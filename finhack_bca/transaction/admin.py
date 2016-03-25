@@ -1,9 +1,11 @@
 from django.contrib import admin
 
+from guardian.admin import GuardedModelAdmin
+
 from finhack_bca.transaction import models
 
 
-class CounterTopUpAdmin(admin.ModelAdmin):
+class CounterTopUpAdmin(GuardedModelAdmin):
     list_display = [
         'counter',
         'date',
@@ -26,7 +28,7 @@ class CounterTopUpAdmin(admin.ModelAdmin):
     amount_formatted.admin_order_field = 'amount'
 
 
-class CustomerTopUpAdmin(admin.ModelAdmin):
+class CustomerTopUpAdmin(GuardedModelAdmin):
     list_display = [
         'customer',
         'date',
@@ -70,7 +72,7 @@ class PaymentAdmin(admin.ModelAdmin):
     amount_formatted.admin_order_field = 'amount'
 
 
-class TransactionAdmin(admin.ModelAdmin):
+class TransactionAdmin(GuardedModelAdmin):
     list_display = [
         'transaction_code',
         'customer',

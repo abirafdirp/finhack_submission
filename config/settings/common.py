@@ -43,7 +43,9 @@ THIRD_PARTY_APPS = (
     'allauth.socialaccount',  # registration
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_auth'
+    'rest_auth',
+    'rest_framework_docs',
+    'guardian',  # object level permission
 )
 
 # Apps specific for this project go here.
@@ -121,7 +123,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 TIME_ZONE = 'Asia/Jakarta'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'en_US'
+LANGUAGE_CODE = 'id'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -213,6 +215,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
 )
 
 # Some really nice defaults
@@ -237,6 +240,7 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
 
+# default serializer, which is JSON, does not support objects
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 # Your common stuff: Below this line define 3rd party library settings

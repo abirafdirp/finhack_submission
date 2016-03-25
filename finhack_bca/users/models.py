@@ -35,11 +35,11 @@ class User(AbstractUser):
     balance = models.IntegerField(default=0)
 
     # for store only
-    stores = models.ManyToManyField(Store)
+    stores = models.ManyToManyField(Store, blank=True)
 
     # BCA's mandatory fields, email is used as primary id bca
     date_of_birth = models.DateField(blank=True, null=True)
-    mobile_number = models.CharField(max_length=30)
+    mobile_number = models.CharField(max_length=30, blank=True, null=True)
 
     def __str__(self):
         return self.username

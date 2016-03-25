@@ -8,7 +8,17 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
+from rest_framework.routers import DefaultRouter
+
 from finhack_bca.frontend import views
+from finhack_bca.transaction.views import TransactionViewSet, CounterTopUpViewSet, CustomerTopUpViewSet
+
+
+# API
+router = DefaultRouter()
+router.register(r'api/transactions', TransactionViewSet, base_name='Transaction')
+router.register(r'api/countertopups', CounterTopUpViewSet, base_name='CounterTopUp')
+router.register(r'api/customertopups', CustomerTopUpViewSet, base_name='CustomerTopUp')
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
@@ -29,7 +39,10 @@ urlpatterns = [
 
     # Your stuff: custom urls includes go here
     url(r'^api/', include('rest_auth.urls')),
-    url(r'^api/registration/', include('rest_auth.registration.urls'))
+    url(r'^api/docs/', include('rest_framework_docs.urls')),
+    url(r'^api/registration/', include('rest_auth.registration.urls')),
+    url(r'^', include(router.urls)),
+
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

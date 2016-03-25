@@ -28,6 +28,9 @@ class CounterTopUp(BaseTransaction):
     class Meta:
         verbose_name = 'Top up counter'
         verbose_name_plural = 'Top up counter'
+        permissions = (
+            ('view_counter_top_up', 'View counter top up'),
+        )
 
     def save(self, *args, **kwargs):
         return super(BaseTransaction, self).save(*args, **kwargs)
@@ -49,6 +52,9 @@ class CustomerTopUp(BaseTransaction):
     class Meta:
         verbose_name = 'Top up pengguna'
         verbose_name_plural = 'Top up pengguna'
+        permissions = (
+            ('view_customer_top_up', 'View customer top up'),
+        )
 
 
 @python_2_unicode_compatible
@@ -78,9 +84,12 @@ class Transaction(BaseTransaction):
 
     def save(self, *args, **kwargs):
         # disabled temporarily for testing purposes
-        self.date = timezone.now()
+        # self.date = timezone.now()
         return super(Transaction, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Transaksi toko'
         verbose_name_plural = 'Transaksi toko'
+        permissions = (
+            ('view_transaction', 'View transaction'),
+        )

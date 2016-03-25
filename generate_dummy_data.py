@@ -4,7 +4,6 @@ import random
 from dateutil.relativedelta import relativedelta
 
 import pytz
-
 from faker import Faker
 
 import django
@@ -14,7 +13,7 @@ from django.utils import timezone
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'config.settings.local')
 django.setup()
-
+from guardian.shortcuts import assign_perm
 from finhack_bca.transaction.models import CustomerTopUp
 from finhack_bca.transaction.models import CounterTopUp
 from finhack_bca.transaction.models import Payment
@@ -68,7 +67,7 @@ date_of_births = [
 
 # register counters
 for a in range(0, 10):
-    User.objects.create_user(
+    counter = User.objects.create_user(
         username=fake.user_name(),
         email=fake.email(),
         password='qwerty',
@@ -95,13 +94,14 @@ for counter in counters:
     fake_datetime_topup = fake_datetime_timezoned
     topups = random.randint(1, 5)
     for topup in range(0, topups):
-        CounterTopUp.objects.create(
+        countertopup = CounterTopUp.objects.create(
             counter=counter,
             date=fake_datetime_topup,
             amount=random.choice(balances),
             status=True,
             method=random.choice(methods)
         )
+        assign_perm('view_counter_top_up', counter, countertopup)
         fake_datetime_topup += add_random_days()
 
 
@@ -130,13 +130,15 @@ for customer in customers:
             while counter.balance < topup_amount:
                 counter = random.choice(list(counters))
 
-        CustomerTopUp.objects.create(
+        customertopup = CustomerTopUp.objects.create(
             counter=counter,
             customer=customer,
             date=fake_datetime_topup,
             amount=topup_amount,
             status=True
         )
+        assign_perm('view_customer_top_up', counter, customertopup)
+        assign_perm('view_customer_top_up', customer, customertopup)
         fake_datetime_topup += add_random_days(long=False)
 
 
@@ -155,6 +157,7 @@ for x in range(0, 8):
         mobile_number=fake.phone_number(),
         date_of_birth=random.choice(date_of_births)
     )
+    assign_perm('view_store', user, store)
     user.stores.add(store)
 
 
@@ -177,7 +180,7 @@ for user in users:
         transaction_amount = random.choice(transaction_amounts)
         if user.balance < transaction_amount:
             continue
-        Transaction.objects.create(
+        transaction = Transaction.objects.create(
             date=fake_datetime_transaction,
             store=store,
             customer=user,
@@ -185,5 +188,7 @@ for user in users:
             remarks=fake.text(max_nb_chars=100),
             status=random.choice([True, True, True, True, False])
         )
+        assign_perm('view_transaction', user, transaction)
+        assign_perm('view_transaction', transaction.store.user_set.all()[0], transaction)
         fake_datetime_transaction += add_random_days(long=False)
 

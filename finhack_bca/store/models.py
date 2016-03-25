@@ -15,3 +15,6 @@ class Store(models.Model):
     class Meta:
         verbose_name = 'Toko'
         verbose_name_plural = 'Toko'
+        permissions = (
+            ('view_store', 'View store'),
+        )
