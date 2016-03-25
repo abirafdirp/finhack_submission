@@ -12,6 +12,7 @@ from rest_framework.routers import DefaultRouter
 
 from finhack_bca.frontend import views
 from finhack_bca.transaction.views import TransactionViewSet, CounterTopUpViewSet, CustomerTopUpViewSet
+from finhack_bca.store.views import StoreViewSet
 
 
 # API
@@ -19,6 +20,7 @@ router = DefaultRouter()
 router.register(r'api/transactions', TransactionViewSet, base_name='Transaction')
 router.register(r'api/countertopups', CounterTopUpViewSet, base_name='CounterTopUp')
 router.register(r'api/customertopups', CustomerTopUpViewSet, base_name='CustomerTopUp')
+router.register(r'api/stores', StoreViewSet, base_name='Store')
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),

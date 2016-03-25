@@ -251,3 +251,6 @@ REST_AUTH_SERIALIZERS = {
 }
 
 ACCOUNT_SIGNUP_FORM_CLASS = 'finhack_bca.users.forms.SignupForm'
+
+# django-guardian anonymous user
+ANONYMOUS_USER_ID = -1

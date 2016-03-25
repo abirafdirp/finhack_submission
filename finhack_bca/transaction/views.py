@@ -37,8 +37,17 @@ class CounterTopUpViewSet(viewsets.ReadOnlyModelViewSet):
         return queryset
 
 
+SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS']
+
+
 class CustomerTopUpViewSet(viewsets.ModelViewSet):
-    queryset = CustomerTopUp.objects.all()
-    permission_classes = (CustomObjectPermissions,)
     serializer_class = CustomerTopUpSerializer
-    filter_backends = (DjangoObjectPermissionsFilter,)
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        user_type = self.request.user.type
+        if user_type == 'customer':
+            queryset = CustomerTopUp.objects.filter(customer=self.request.user)
+        if user_type == 'counter':
+            queryset = CustomerTopUp.objects.filter(counter=self.request.user)
+        return queryset
