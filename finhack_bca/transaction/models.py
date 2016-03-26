@@ -29,7 +29,7 @@ class CounterTopUp(BaseTransaction):
         verbose_name = 'Top up counter'
         verbose_name_plural = 'Top up counter'
         permissions = (
-            ('view_counter_top_up', 'View counter top up'),
+            ('view_countertopup', 'Can view counter top up'),
         )
 
     def save(self, *args, **kwargs):
@@ -49,11 +49,26 @@ class CustomerTopUp(BaseTransaction):
         # self.date = timezone.now()
         return super(CustomerTopUp, self).save(*args, **kwargs)
 
+    @staticmethod
+    def has_read_permission(request):
+        return request.user.type == 'customer' or request.user.type == 'counter'
+
+    def has_object_read_permission(self, request):
+        return request.user.type == 'customer' or request.user.type == 'counter'
+
+    @staticmethod
+    def has_write_permission(request):
+        return request.user.type == 'counter'
+
+    @staticmethod
+    def has_create_permission(request):
+        return request.user.type == 'counter'
+
     class Meta:
         verbose_name = 'Top up pengguna'
         verbose_name_plural = 'Top up pengguna'
         permissions = (
-            ('view_customer_top_up', 'View customer top up'),
+            ('view_customertopup', 'Can view customer top up'),
         )
 
 
@@ -91,5 +106,5 @@ class Transaction(BaseTransaction):
         verbose_name = 'Transaksi toko'
         verbose_name_plural = 'Transaksi toko'
         permissions = (
-            ('view_transaction', 'View transaction'),
+            ('view_transaction', 'Can view transaction'),
         )

@@ -1,12 +1,16 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated, DjangoObjectPermissions
-from rest_framework.filters import DjangoObjectPermissionsFilter
+from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
 
-from finhack_bca.utils.permissions import CustomObjectPermissions
+from dry_rest_permissions.generics import DRYPermissions
 
 from finhack_bca.transaction.models import Transaction, CounterTopUp, CustomerTopUp
-from finhack_bca.transaction.serializers import TransactionSerializer, CounterTopUpSerializer, CustomerTopUpSerializer
-
+from finhack_bca.transaction.serializers import TransactionSerializer
+from finhack_bca.transaction.serializers import CounterTopUpSerializer
+from finhack_bca.transaction.serializers import CustomerTopUpSerializer
+from finhack_bca.transaction.serializers import ConfirmTransactionSerializer
 
 class TransactionViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsAuthenticated,)
@@ -42,12 +46,15 @@ SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS']
 
 class CustomerTopUpViewSet(viewsets.ModelViewSet):
     serializer_class = CustomerTopUpSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (DRYPermissions,)
+    queryset = CustomerTopUp.objects.all()
 
     def get_queryset(self):
         user_type = self.request.user.type
-        if user_type == 'customer':
-            queryset = CustomerTopUp.objects.filter(customer=self.request.user)
         if user_type == 'counter':
             queryset = CustomerTopUp.objects.filter(counter=self.request.user)
+        elif user_type == 'customer':
+            queryset = CustomerTopUp.objects.filter(customer=self.request.user)
+        else:
+            queryset = None
         return queryset

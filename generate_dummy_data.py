@@ -101,7 +101,7 @@ for counter in counters:
             status=True,
             method=random.choice(methods)
         )
-        assign_perm('view_counter_top_up', counter, countertopup)
+        assign_perm('view_countertopup', counter, countertopup)
         fake_datetime_topup += add_random_days()
 
 
@@ -137,10 +137,12 @@ for customer in customers:
             amount=topup_amount,
             status=True
         )
-        assign_perm('view_customer_top_up', counter, customertopup)
-        assign_perm('view_customer_top_up', customer, customertopup)
-        fake_datetime_topup += add_random_days(long=False)
+        assign_perm('view_customertopup', counter, customertopup)
 
+        assign_perm('view_customertopup', customer, customertopup)
+        fake_datetime_topup += add_random_days(long=False)
+        last = customer
+        last1 = customertopup
 
 # generate stores and theirs accounts
 for x in range(0, 8):

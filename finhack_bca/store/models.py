@@ -16,5 +16,5 @@ class Store(models.Model):
         verbose_name = 'Toko'
         verbose_name_plural = 'Toko'
         permissions = (
-            ('view_store', 'View store'),
+            ('view_store', 'Can view store'),
         )

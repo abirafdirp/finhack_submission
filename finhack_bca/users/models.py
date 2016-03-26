@@ -7,6 +7,8 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
+from guardian.mixins import GuardianUserMixin
+
 from finhack_bca.store.models import Store
 
 
@@ -19,7 +21,7 @@ TYPE = (
 
 
 @python_2_unicode_compatible
-class User(AbstractUser):
+class User(AbstractUser, GuardianUserMixin):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.

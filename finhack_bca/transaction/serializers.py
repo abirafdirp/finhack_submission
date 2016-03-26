@@ -22,3 +22,7 @@ class CustomerTopUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerTopUp
         fields = '__all__'
+
+
+class ConfirmTransactionSerializer(serializers.Serializer):
+    pass

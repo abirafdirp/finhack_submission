@@ -46,6 +46,7 @@ THIRD_PARTY_APPS = (
     'rest_auth',
     'rest_framework_docs',
     'guardian',  # object level permission
+    'dry_rest_permissions',  # rule based permission for DRF
 )
 
 # Apps specific for this project go here.
@@ -214,8 +215,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # ------------------------------------------------------------------------------
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
     'guardian.backends.ObjectPermissionBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 # Some really nice defaults
@@ -254,3 +255,4 @@ ACCOUNT_SIGNUP_FORM_CLASS = 'finhack_bca.users.forms.SignupForm'
 
 # django-guardian anonymous user
 ANONYMOUS_USER_ID = -1
+GUARDIAN_MONKEY_PATCH = False
