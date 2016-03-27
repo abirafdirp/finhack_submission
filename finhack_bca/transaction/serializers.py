@@ -25,4 +25,4 @@ class CustomerTopUpSerializer(serializers.ModelSerializer):
 
 
 class ConfirmTransactionSerializer(serializers.Serializer):
-    pass
+    transaction_code = serializers.UUIDField()

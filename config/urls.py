@@ -11,7 +11,10 @@ from django.views import defaults as default_views
 from rest_framework.routers import DefaultRouter
 
 from finhack_bca.frontend import views
-from finhack_bca.transaction.views import TransactionViewSet, CounterTopUpViewSet, CustomerTopUpViewSet
+from finhack_bca.transaction.views import TransactionViewSet
+from finhack_bca.transaction.views import CounterTopUpViewSet
+from finhack_bca.transaction.views import CustomerTopUpViewSet
+from finhack_bca.transaction.views import confirm_transaction
 from finhack_bca.store.views import StoreViewSet
 
 
@@ -43,6 +46,7 @@ urlpatterns = [
     url(r'^api/', include('rest_auth.urls')),
     url(r'^api/docs/', include('rest_framework_docs.urls')),
     url(r'^api/registration/', include('rest_auth.registration.urls')),
+    url(r'^api/confirmtransaction/', confirm_transaction, name='confirm-transaction'),
     url(r'^', include(router.urls)),
 
 

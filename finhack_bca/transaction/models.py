@@ -94,6 +94,9 @@ class Transaction(BaseTransaction):
                                         blank=True,
                                         null=True)
 
+    def __str__(self):
+        return str(self.transaction_code)
+
     # remarks from the store, such as detail of the transaction
     remarks = models.TextField()
 
