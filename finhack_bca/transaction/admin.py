@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 from guardian.admin import GuardedModelAdmin
 
@@ -49,6 +51,32 @@ class CustomerTopUpAdmin(GuardedModelAdmin):
 
     amount_formatted.short_description = 'jumlah'
     amount_formatted.admin_order_field = 'amount'
+
+    def get_queryset(self, request):
+        return models.CustomerTopUp.objects.filter(customer=request.user)
+
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.is_superuser:
+            return models.CustomerTopUp._meta.get_all_field_names()
+        return self.readonly_fields
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        if not self.get_queryset(request).filter(id=object_id).exists():
+            return HttpResponseRedirect(reverse('admin:transaction_customertopup_changelist'))
+
+        return super(CustomerTopUpAdmin, self).change_view(request, object_id, form_url, extra_context)
+
+    def delete_view(self, request, object_id, extra_context=None):
+        if not self.get_queryset(request).filter(id=object_id).exists():
+            return HttpResponseRedirect(reverse('admin:transaction_customertopup_changelist'))
+
+        return super(CustomerTopUpAdmin, self).delete_view(request, object_id, extra_context)
+
+    def history_view(self, request, object_id, extra_context=None):
+        if not self.get_queryset(request).filter(id=object_id).exists():
+            return HttpResponseRedirect(reverse('admin:transaction_customertopup_changelist'))
+
+        return super(CustomerTopUpAdmin, self).history_view(request, object_id, extra_context)
 
 
 class PaymentAdmin(admin.ModelAdmin):
