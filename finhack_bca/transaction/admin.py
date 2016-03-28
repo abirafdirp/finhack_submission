@@ -116,6 +116,11 @@ class TransactionAdmin(GuardedModelAdmin):
         'amount',
         'status'
     ]
+    search_fields = [
+        'transaction_code',
+        'customer',
+        'store'
+    ]
 
     def amount_formatted(self, instance):
         return 'IDR {:,}'.format(instance.amount).replace(',', '.')
