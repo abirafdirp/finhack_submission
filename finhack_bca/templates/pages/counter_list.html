@@ -4,13 +4,20 @@
 
 {% block title %}Daftar counter{% endblock %}
 
+{% block bgimage %}
+  <div id="bg-container">
+    <h1 id="bg-title">
+      Lokasi Counter Terdekat
+    </h1>
+    <img src="{% static 'images/counter-bg.jpg' %}" id="bg">
+  </div>
+{% endblock bgimage %}
+
 {% block content %}
-  <div class="col-sm-12">
-    <h4>Temukan counter di seluruh Indonesia</h4>
-    <table class="table table-inverse">
+  <div class="col-sm-12 margintop">
+    <table class="table table-striped table-hover">
       <thead>
       <tr>
-        <th>#</th>
         <th>Nama</th>
         <th>Alamat</th>
         <th>Kota</th>
@@ -21,7 +28,6 @@
       <tbody>
       {% for counter in object_list %}
         <tr>
-          <th scope="row">{{ forloop.counter }}</th>
           <td>{{ counter.name }}</td>
           <td>{{ counter.address }}</td>
           <td>{{ counter.city }}</td>

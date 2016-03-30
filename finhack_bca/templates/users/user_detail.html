@@ -8,7 +8,7 @@
   {% load humanize %}
   <div class="container">
 
-    <div class="row">
+    <div class="row margintop">
       <div class="col-sm-12">
 
         <h2>{{ object.username }} - {{ object.type }}</h2>
@@ -22,22 +22,18 @@
       <!-- Action buttons -->
       <div class="row">
 
-        <div class="col-sm-12 ">
+        <div class="col-sm-12">
           <a class="btn btn-primary" href="{% url 'users:update' %}">My Info</a>
           <a class="btn btn-primary" href="{% url 'account_email' %}">E-Mail</a>
         </div>
 
-        <div class="col-sm-12">
-          Saldo : IDR {{ object.balance|intcomma }}
-        </div>
-
         {% if object.type == 'customer' or object.type == 'counter' %}
-        <div class="col-sm-12">
+        <div class="col-sm-12 margintop">
           <h4>Riwayat Top Up</h4>
-          <table class="table table-inverse">
+          <table class="table table-striped table-hover">
             <thead>
               <tr>
-                <th>#</th>
+                <th></th>
                 <th>Tanggal</th>
                 <th>Counter</th>
                 <th>Jumlah</th>
@@ -74,12 +70,12 @@
         {% endif %}
 
         {% if object.customer_top_ups.all %}
-          <div class="col-sm-12">
+          <div class="col-sm-12 margintop">
             <h4>Riwayat Top Up Pelanggan</h4>
-            <table class="table table-inverse">
+            <table class="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th>#</th>
+                  <th></th>
                   <th>Tanggal</th>
                   <th>Pengguna</th>
                   <th>Jumlah</th>
@@ -101,12 +97,12 @@
           </div>
         {% endif %}
 
-        <div class="col-sm-12">
+        <div class="col-sm-12 margintop">
           <h4>Riwayat Transaksi</h4>
-          <table class="table table-inverse">
+          <table class="table table-striped table-hover">
             <thead>
               <tr>
-                <th>#</th>
+                <th></th>
                 <th>Tanggal</th>
                 <th>Kode transaksi</th>
                 <th>Toko</th>

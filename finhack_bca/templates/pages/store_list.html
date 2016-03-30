@@ -4,30 +4,30 @@
 
 {% block title %}Daftar toko{% endblock %}
 
+{% block bgimage %}
+  <div id="bg-container">
+    <h1 id="bg-title">
+      Daftar Toko Yang Menggunakan ......
+    </h1>
+    <img src="{% static 'images/store-bg.jpg' %}" id="bg">
+  </div>
+{% endblock bgimage %}
+
+
 {% block content %}
-  <div class="col-sm-12">
-    <h4>Daftar toko yang menggunakan sistem kita</h4>
-    <table class="table table-inverse">
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>Nama</th>
-        <th>Alamat</th>
-        <th>Deskripsi</th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for store in store_list %}
-        <tr>
-          <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ store.name }}</td>
-          <td>{{ store.domain }}</td>
-          <td>{{ store.short_description }}</td>
-        </tr>
-        {% if forloop.last %}
-        {% endif %}
-      {% endfor %}
-      </tbody>
-    </table>
+  <div class="grid" style="margin-top: 20px">
+    {% for store in store_list %}
+      <figure class="effect-steve">
+        <img src="{% static 'images/store-placeholder.jpg' %}" alt=""/>
+        <figcaption>
+          <h2>{{ store.name }}</h2>
+          <p>{{ store.short_description }}</p>
+          <a href="{{ store.domain }}">View more</a>
+        </figcaption>
+      </figure>
+
+      {% if forloop.last %}
+      {% endif %}
+    {% endfor %}
   </div>
 {% endblock %}
