@@ -2,8 +2,9 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.views.generic import ListView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 
-from finhack_bca.store.models import Store
+from finhack_bca.store.models import Store, Location
 from finhack_bca.users.models import User
 from finhack_bca.transaction.models import Transaction
 from finhack_bca.frontend.forms import ConfirmationForm
@@ -14,10 +15,13 @@ class StoreListView(ListView):
     template_name = 'pages/store_list.html'
 
 
-class CounterListView(ListView):
-    model = User
-    queryset = User.objects.filter(type='counter')
-    template_name = 'pages/counter_list.html'
+def counter_list_view(request):
+    context = {
+        'counters': User.objects.filter(type='counter'),
+        'locations': Location.objects.all()
+    }
+    template = 'pages/counter_list.html'
+    return render(request, template, context)
 
 
 class TransactionConfirmationView(LoginRequiredMixin, CreateView):

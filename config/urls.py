@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
     url(r'^daftar-toko/$', views.StoreListView.as_view(), name="list_toko"),
-    url(r'^daftar-counter/$', views.CounterListView.as_view(), name="list_counter"),
+    url(r'^daftar-counter/$', views.counter_list_view, name="list_counter"),
     url(r'^konfirmasi/$', views.TransactionConfirmationView.as_view(), name="transaction_confirmation"),
     url(r'^developer/$', TemplateView.as_view(template_name='pages/developer.html'), name='developer'),
     url(r'^konfirmasi/kode/$', views.GetLatestCodeView.as_view(), name='get-transaction-code'),

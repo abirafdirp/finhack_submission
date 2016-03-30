@@ -19,4 +19,13 @@ class StoreAdmin(GuardedModelAdmin):
     balance_formatted.admin_order_field = 'balance'
 
 
+class LocationAdmin(admin.ModelAdmin):
+    list_display = [
+        'name',
+        'latitude',
+        'longitude'
+    ]
+
+
 admin.site.register(models.Store, StoreAdmin)
+admin.site.register(models.Location, LocationAdmin)

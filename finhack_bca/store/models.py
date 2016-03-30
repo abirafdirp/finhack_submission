@@ -18,3 +18,10 @@ class Store(models.Model):
         permissions = (
             ('view_store', 'Can view store'),
         )
+
+
+@python_2_unicode_compatible
+class Location(models.Model):
+    name = models.CharField(max_length=100)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
