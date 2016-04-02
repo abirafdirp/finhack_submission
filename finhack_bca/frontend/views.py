@@ -4,10 +4,11 @@ from django.views.generic import ListView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 
-from finhack_bca.store.models import Store, Location
+from finhack_bca.store.models import Store
+from finhack_bca.utils.models import Location
 from finhack_bca.users.models import User
-from finhack_bca.transaction.models import Transaction
-from finhack_bca.frontend.forms import ConfirmationForm
+from finhack_bca.transaction.models import Transaction, CustomerTopUp
+from finhack_bca.frontend.forms import TransactionConfirmationForm, CustomerTopUpForm
 
 
 class StoreListView(ListView):
@@ -27,10 +28,10 @@ def counter_list_view(request):
 class TransactionConfirmationView(LoginRequiredMixin, CreateView):
     template_name = 'pages/confirmation.html'
     model = Transaction
-    form_class = ConfirmationForm
+    form_class = TransactionConfirmationForm
 
     def get_success_url(self):
-        return reverse("get-transaction-code")
+        return reverse("get_transaction_code")
 
     def form_valid(self, form):
         user = self.request.user
@@ -61,6 +62,12 @@ class GetLatestCodeView(LoginRequiredMixin, TemplateView):
             'latest_transaction': self.request.user.transactions.all().order_by('-id')[0]
         }
         return context
+
+
+class CreateCustomerTopUpView(LoginRequiredMixin, CreateView):
+    template_name = 'pages/customer_top_up.html'
+    model = CustomerTopUp
+    form_class = CustomerTopUpForm
 
 
 

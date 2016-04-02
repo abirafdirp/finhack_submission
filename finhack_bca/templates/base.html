@@ -1,7 +1,7 @@
 {% load staticfiles i18n %}
 {% load humanize %}
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="finhacks">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -51,7 +51,7 @@
                 <a class="nav-link" href="{% url 'list_toko' %}">Supported stores</a>
               </li>
               <li class="nav-item {% ifequal request.path '/daftar-counter/'%} active {% endifequal%}">
-                <a class="nav-link" href="{% url 'list_counter' %}">Counter</a>
+                <a class="nav-link" href="{% url 'list_counter' %}">Lokasi counter</a>
               </li>
               <li class="nav-item {% ifequal request.path '/developer/'%} active {% endifequal%}">
                 <a class="nav-link" href="{% url 'developer' %}">Integrasi (untuk developer)</a>

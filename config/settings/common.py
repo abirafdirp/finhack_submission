@@ -29,11 +29,12 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
-    # Useful template tags:
-    # 'django.contrib.humanize',
-
     # Admin
     'jet',
+
+    # autocomplete
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
@@ -56,6 +57,7 @@ LOCAL_APPS = (
     'finhack_bca.store',
     'finhack_bca.transaction',
     'finhack_bca.frontend',
+    'finhack_bca.utils',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

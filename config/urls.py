@@ -16,6 +16,7 @@ from finhack_bca.transaction.views import CounterTopUpViewSet
 from finhack_bca.transaction.views import CustomerTopUpViewSet
 from finhack_bca.transaction.views import confirm_transaction
 from finhack_bca.store.views import StoreViewSet
+from finhack_bca.utils.views import CustomerAutocomplete
 
 
 # API
@@ -32,7 +33,8 @@ urlpatterns = [
     url(r'^daftar-counter/$', views.counter_list_view, name="list_counter"),
     url(r'^konfirmasi/$', views.TransactionConfirmationView.as_view(), name="transaction_confirmation"),
     url(r'^developer/$', TemplateView.as_view(template_name='pages/developer.html'), name='developer'),
-    url(r'^konfirmasi/kode/$', views.GetLatestCodeView.as_view(), name='get-transaction-code'),
+    url(r'^konfirmasi/kode/$', views.GetLatestCodeView.as_view(), name='get_transaction_code'),
+    url(r'^topup/$', views.CreateCustomerTopUpView.as_view(), name='customer_top_up'),
 
     # Django Admin, use {% url 'admin:index' %}
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
@@ -46,8 +48,11 @@ urlpatterns = [
     url(r'^api/', include('rest_auth.urls')),
     url(r'^api/docs/', include('rest_framework_docs.urls')),
     url(r'^api/registration/', include('rest_auth.registration.urls')),
-    url(r'^api/confirmtransaction/', confirm_transaction, name='confirm-transaction'),
+    url(r'^api/confirmtransaction/', confirm_transaction),
     url(r'^', include(router.urls)),
+
+    # Autocompletes
+    url(r'^customer-autocomplete/$', CustomerAutocomplete.as_view(), name='customer_autocomplete'),
 
 
 

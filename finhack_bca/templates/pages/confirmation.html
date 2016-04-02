@@ -6,7 +6,7 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  <form class="form-horizontal" method="post" action="{% url 'transaction-confirmation' %}">
+  <form class="form-horizontal" method="post" action="{% url 'transaction_confirmation' %}">
         {% csrf_token %}
         {{ form|crispy }}
         <div class="control-group">

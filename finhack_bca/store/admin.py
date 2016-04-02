@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from guardian.admin import GuardedModelAdmin
 
+import finhack_bca.utils.models
 from finhack_bca.store import models
 
 
@@ -28,4 +29,4 @@ class LocationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Store, StoreAdmin)
-admin.site.register(models.Location, LocationAdmin)
+admin.site.register(finhack_bca.utils.models.Location, LocationAdmin)
