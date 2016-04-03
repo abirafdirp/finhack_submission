@@ -33,6 +33,7 @@ class TransactionConfirmationView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse("get_transaction_code")
 
+    # TODO change status to false when implementing BCA's APIs
     def form_valid(self, form):
         user = self.request.user
         form.instance.customer = user
@@ -43,7 +44,7 @@ class TransactionConfirmationView(LoginRequiredMixin, CreateView):
     # get initial data from URL query parameters
     def get_initial(self):
         if self.request.GET:
-            store_id = int(self.request.GET.get('id'))
+            store_id = int(self.request.GET.get('store'))
             self.request.session['store'] = Store.objects.get(id=store_id).pk
             self.request.session['remarks'] = self.request.GET.get('remarks')
             self.request.session['amount'] = self.request.GET.get('amount')
@@ -64,10 +65,23 @@ class GetLatestCodeView(LoginRequiredMixin, TemplateView):
         return context
 
 
+# TODO make forbidden for user that is not a counter
 class CreateCustomerTopUpView(LoginRequiredMixin, CreateView):
     template_name = 'pages/customer_top_up.html'
     model = CustomerTopUp
     form_class = CustomerTopUpForm
+
+    def get_success_url(self):
+        return reverse("users:detail",
+                       kwargs={"username": self.request.user.username})
+
+    # TODO change status to false when implementing BCA's APIs
+    def form_valid(self, form):
+        counter = self.request.user
+        form.instance.counter = counter
+        form.instance.date = timezone.now()
+        form.instance.status = True
+        return super(CreateCustomerTopUpView, self).form_valid(form)
 
 
 

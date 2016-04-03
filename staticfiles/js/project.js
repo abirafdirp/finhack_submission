@@ -26,5 +26,6 @@ finhacksApp.config(function($interpolateProvider) {
 
 finhacksApp.controller('CountersCtrl', ['$scope',
     function($scope){
+      $scope.wat = 'asfasf';
     }
 ]);

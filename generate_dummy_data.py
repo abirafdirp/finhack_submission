@@ -25,6 +25,8 @@ print('This might take a while...')
 print('Generating Stores, Counters, Customers, Top Ups, Payments,'
       'and Transactions')
 
+# TODO change all status to false when implementing BCA's APIs
+
 
 def timezone_it(datetime):
     return pytz.timezone('Asia/Jakarta').localize(datetime)
