@@ -12,8 +12,8 @@ finhacksApp.config(function($interpolateProvider) {
 });
 
 
-finhacksApp.controller('CountersCtrl', ['$scope',
-  function($scope){
+finhacksApp.controller('CountersCtrl', ['$scope', '$filter',
+  function($scope, $filter){
     // calculate distance between two latitude and longitude points
     // based on http://stackoverflow.com/a/27943/3390639
     // using haversine formula
@@ -28,6 +28,9 @@ finhacksApp.controller('CountersCtrl', ['$scope',
     };
     $scope.selectDropdownItem = function(selectedItem){
       $scope.selectedItem = selectedItem;
+      angular.forEach($scope.counters, function(counter){
+        counter['distance'] = $scope.distance(selectedItem.latitude, selectedItem.longitude, counter.latitude, counter.longitude);
+      });
       $scope.counters = $filter('orderBy')($scope.counters, 'distance');
     }
   }
