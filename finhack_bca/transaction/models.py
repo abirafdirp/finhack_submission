@@ -53,6 +53,7 @@ class CustomerTopUp(BaseTransaction):
     def has_read_permission(request):
         return request.user.type == 'customer' or request.user.type == 'counter'
 
+    @staticmethod
     def has_object_read_permission(self, request):
         return request.user.type == 'customer' or request.user.type == 'counter'
 
