@@ -64,6 +64,10 @@ class CustomerTopUp(BaseTransaction):
     def has_create_permission(request):
         return request.user.type == 'counter'
 
+    @staticmethod
+    def has_create_permission(request):
+        return request.user.type == 'counter'
+
     class Meta:
         verbose_name = 'Top up pengguna'
         verbose_name_plural = 'Top up pengguna'

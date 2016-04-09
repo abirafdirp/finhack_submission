@@ -15,34 +15,33 @@
 {% endblock bgimage %}
 
 {% block content %}
-	<div ng-controller="CountersCtrl" class="margintop" ng-cloak>
-  Urutkan counter berdasarkan lokasi anda
-  <div class="btn-group" ng-init="locations={{locations | locationsjson}}">
-    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      lokasi
-    </button>
-    <div class="dropdown-menu">
-      <button class="dropdown-item" ng-repeat="location in locations" type="button" ng-click="selectDropdownItem(location)">{$location.name$}</button>
+  <div ng-controller="CountersCtrl" class="margintop" ng-cloak>
+    Urutkan counter berdasarkan lokasi anda
+    <div class="btn-group" ng-init="locations={{locations | locationsjson}}">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        lokasi
+      </button>
+      <div class="dropdown-menu">
+        <button class="dropdown-item" ng-repeat="location in locations" type="button" ng-click="selectDropdownItem(location)">{$location.name$}</button>
+      </div>
     </div>
-  </div>
-  <div class="col-sm-12 margintop" ng-init="counters={{ counters | countersjson }}">
-    <table class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th>Nama</th>
-        <th>Alamat</th>
-        <th>Kota</th>
-        <th>distance</th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="counter in counters">
-          <td>{$ counter.name $}</td>
-          <td>{$ counter.address $}</td>
-          <td>{$ counter.city $}</td>
-          <td>{$ counter.distance $} KM</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="col-sm-12 margintop row" ng-init="counters={{ counters | countersjson }}">
+        <div class="col-sm-3" ng-repeat="counter in counters">
+          <div class="card">
+            <img class="card-img-top img-fluid" ng-src="{% static "images/counter-default.jpg" %}" alt="Card image cap">
+            <div class="card-block">
+              <h4 class="card-title">{$ counter.name $}</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">{$ counter.address $}</li>
+              <li class="list-group-item">{$ counter.city $}</li>
+              <li class="list-group-item" ng-show="counter.distance">{$ counter.distance $} KM</li>
+            </ul>
+            <div class="card-block text-xs-center">
+              <a href="#" class="btn btn-primary-outline" style="position: absolute; bottom: 30px; left: 23px;">Open in Google Maps</a>
+            </div>
+          </div>
+        </div>
+    </div>
   </div>
 {% endblock %}

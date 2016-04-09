@@ -45,7 +45,7 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    'rest_framework_docs',
+    'rest_framework_swagger',
     'guardian',  # object level permission
     'dry_rest_permissions',  # rule based permission for DRF
 )

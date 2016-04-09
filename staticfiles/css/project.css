@@ -81,6 +81,10 @@
   font-weight: 600;
 }
 
+.card {
+	min-height: 500px !important;
+}
+
 /* http://tympanus.net/Development/HoverEffectIdeas/ slightly modified
 */
 

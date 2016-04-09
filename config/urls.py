@@ -16,15 +16,15 @@ from finhack_bca.transaction.views import CounterTopUpViewSet
 from finhack_bca.transaction.views import CustomerTopUpViewSet
 from finhack_bca.transaction.views import confirm_transaction
 from finhack_bca.store.views import StoreViewSet
-from finhack_bca.utils.views import CustomerAutocomplete
+from finhack_bca.utils.views import CustomerAutocomplete, api_root
 
 
 # API
 router = DefaultRouter()
-router.register(r'api/transactions', TransactionViewSet, base_name='Transaction')
-router.register(r'api/countertopups', CounterTopUpViewSet, base_name='CounterTopUp')
-router.register(r'api/customertopups', CustomerTopUpViewSet, base_name='CustomerTopUp')
-router.register(r'api/stores', StoreViewSet, base_name='Store')
+router.register(r'api/transactions', TransactionViewSet, base_name='transaction')
+router.register(r'api/countertopups', CounterTopUpViewSet, base_name='counter_top_up')
+router.register(r'api/customertopups', CustomerTopUpViewSet, base_name='customer_top_up')
+router.register(r'api/stores', StoreViewSet, base_name='store')
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
@@ -45,10 +45,11 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
-    url(r'^api/', include('rest_auth.urls')),
-    url(r'^api/docs/', include('rest_framework_docs.urls')),
+    url(r'^api/$', api_root),
+    url(r'^api-auth/', include('rest_auth.urls')),
+    url(r'^api/docs/', include('rest_framework_swagger.urls')),
     url(r'^api/registration/', include('rest_auth.registration.urls')),
-    url(r'^api/confirmtransaction/', confirm_transaction),
+    url(r'^api/confirmtransaction/', confirm_transaction, name='api_confirm_transaction'),
     url(r'^', include(router.urls)),
 
     # Autocompletes
