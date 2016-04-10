@@ -19,7 +19,7 @@
     Urutkan counter berdasarkan lokasi anda
     <div class="btn-group" ng-init="locations={{locations | locationsjson}}">
       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        lokasi
+        {$ selectedItem.name $}
       </button>
       <div class="dropdown-menu">
         <button class="dropdown-item" ng-repeat="location in locations" type="button" ng-click="selectDropdownItem(location)">{$location.name$}</button>
