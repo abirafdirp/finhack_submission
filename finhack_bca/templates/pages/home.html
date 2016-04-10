@@ -5,9 +5,37 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  Tidak punya ATM tapi ingin belanja online? gausah pusing sekarang ada ...... kunjungi
-  counter terdekat yang ada di seluruh indonesia untuk top-up saldo kamu dan belanja di
-  toko manapun yang menggunakan ..... <br/><br/>
-  Ingin punya penghasilan tanpa usaha? daftarlah menjadi counter, anda hanya perlu
-  diam di rumah namun pelanggan tetap berdatangan dengan sistem pencarian counter kami
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Isi Saldo Ku!</h1>
+      <p>Mau transaksi online tapi tidak punya rekening? Atau punya rekening tapi  malas mengurus m-banking/e-banking, malas ke atm, atau antri ke bank? Tenang ada SiDoKu, cukup punya koneksi internet anda bisa daftar dan melakukan transaksi dari mana saja. Mengisi saldo tidak perlu ke bank. Cukup ke seluruh counter yang terdaftar ada di mana mana. Segera daftar ke sidoku, kemudahan mengisi saldo seperti mengisi pulsa hp, disertai kemudahan bertransaksi seperti di paypal.</p>
+      <p><a class="btn btn-primary btn-lg" href="accounts/signup" role="button">Daftar &raquo;</a></p>
+    </div>
+  </div>
+
+  <div class="container margintop">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-4">
+        <h2><i class="fa fa-user-plus"></i>Counter</h2>
+        <p>Cari counter terdekat di website SiDoKu. Jika anda ingin menjadi counter, kontak kami di daftarcounter@example.com</p>
+        <p><a class="btn btn-secondary" href="daftar-counter" role="button">Lihat daftar counter &raquo;</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2><i class="fa fa-money"></i>Store</h2>
+        <p>Pemilik toko online, segera integrasikan merchant anda dengan sistem sidoku. Semakin mudah pembayaran, semakin banyak pelanggan anda.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">Kontak kami di daftarstore@example.com &raquo;</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2><i class="fa fa-key"></i>Integrasi</h2>
+        <p>Integrasi SiDoKu sangat mudah! kami memiliki dua metode implementasi, yang salah satunya hanya mengharuskan anda membuat button dengan URL query tambahan.</p>
+        <p><a class="btn btn-secondary" href="developer" role="button">Lihat &raquo;</a></p>
+      </div>
+    </div>
+    <hr>
+
+    <footer>
+      <p>&copy; SiDoKu 2016</p>
+    </footer>
+  </div> <!-- /container -->
 {% endblock %}
