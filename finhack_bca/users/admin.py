@@ -41,7 +41,9 @@ class UserAdmin(AuthUserAdmin):
             (None, {'fields': ('type',
                                'mobile_number',
                                'date_of_birth',
-                               'stores')}),
+                               'stores',
+                               'address',
+                               'name')}),
     )
 
     list_display = [
