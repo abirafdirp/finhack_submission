@@ -5,5 +5,40 @@
 {% block title %}Developer{% endblock %}
 
 {% block content %}
-  Anda ingin mengintegrasikan sistem kita? daftar ke kami dan baca dokumentasi implementasi di ......
+  <div class="col-xs-12 margintop">
+    <h2>Integrasi mudah dilengkapi dengan tampilan riwayat transaksi</h2>
+  </div>
+  <div class="col-sm-4 margintop">
+    <img class="img-fluid" src="{% static 'images/integration.jpg' %}">
+  </div>
+  <div class="col-sm-8 margintop">
+  <h5>Konfirmasi manual</h5>
+    <ol>
+      <li>
+        Daftarkan website anda dengan menghubungi kami di daftarstore@example.com
+      </li>
+      <li>
+        Buatlah button menggunakan logo SiDoKu dengan alamat url <a href="#">https://finhacks2016.pythonanywhere.com/konfirmasi/?store=(ID_STORE)&amount=(JUMLAH_PEMBAYARAN)&remarks=(INFO_TAMBAHAN)</a>
+      </li>
+      <li>
+        Cek status transaksi pada akun anda
+      </li>
+    </ol>
+  <h5>konfirmasi otomatis</h5>
+    <ol>
+      <li>
+        Daftarkan website anda dengan menghubungi kami di daftarstore@example.com. Tentukan private key untuk me-hash remarks yang akan digunakan oleh SiDoKu dan website anda.
+      </li>
+      <li>
+        Buatlah button menggunakan logo SiDoKu dengan alamat url <a href="#">https://finhacks2016.pythonanywhere.com/konfirmasi/?store=(ID_STORE)&amount=(JUMLAH_PEMBAYARAN)&remarks=(INFO_TAMBAHAN)</a>
+      </li>
+      <li>
+        Implementasi backend anda untuk menerima URL dengan hasil hash remarks menggunakan PKBDF2 dan private key anda. Pastikan remarks tiap transaksi berbeda.
+      </li>
+      <li>
+        Setelah pelanggan melakukan pembayaran, maka SiDoKu akan me-redirect ke URL anda.
+      </li>
+    </ol>
+  </div>
+  </div>
 {% endblock %}
